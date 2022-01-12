@@ -4,7 +4,6 @@
 
     const url = "http://127.0.0.1:5000";
     const navItems = [
-        { label: "Home", href: "/" },
         { label: "NFTs", href: "#" },
         { label: "Transactions", href: "/transactions" },
         { label: "Blockchain", href: "#" },
@@ -37,7 +36,7 @@
         </div>
     </nav>
     <div class="logo">
-        <img src="images/logo.png" alt="logo" height="100px"/>
+        <a href="/"><img src="images/logo.png" alt="logo" height="100px"/></a>
     </div>
 </div>
 
