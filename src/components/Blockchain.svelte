@@ -19,7 +19,6 @@
     let data = await response.json();
 
     blocks = data.blocks.reverse();
-    console.log(blocks);
   });
 </script>
 
@@ -33,13 +32,13 @@
         placeholder="Scroll to index..."
         class="input" bind:value={scrollToIndex}
         min="1"
-        max={blocks.length - 1}
+        max={Math.max(blocks.length - 1, 1)}
         style="width:200px"
     >
     <VirtualList
         width="80%"
         height={950}
-        itemCount={blocks.length - 1}
+        itemCount={Math.max(blocks.length - 1, 1)}
         itemSize={450}
         scrollToIndex={blocks.length - scrollToIndex - 1}
     >
@@ -105,7 +104,7 @@
     display: grid;
     place-items: center;
     background-color: rgba(0, 0, 0, 0.9);
-    border-radius: 15px;
+    border-radius: 20px;
     padding-top: 50px;
   }
 
