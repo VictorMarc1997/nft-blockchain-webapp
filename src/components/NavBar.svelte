@@ -1,21 +1,34 @@
 <script>
     // List of navigation items
     import {onMount} from "svelte";
+    import { baseUrl, userState } from '../stores.js';
+    import router from "page";
 
-    const url = "http://127.0.0.1:5000";
     const navItems = [
         { label: "NFTs", href: "#" },
         { label: "Transactions", href: "/transactions" },
-        { label: "Blockchain", href: "#" },
-        { label: "My Account", href: "#" },
+        { label: "Blockchain", href: "/blockchain" },
     ];
+
     let status = "offline";
 
     onMount(async function () {
-        let response = await fetch(url + '/status');
+        let response = await fetch($baseUrl + '/status');
         let data = await response.json();
-        status = data['status'];
+        status = data['bc_status'];
     });
+
+    function logOut() {
+        userState.set({
+            'loggedIn': false,
+            'email': null,
+            'address': null,
+            'amount': null,
+            'admin': false,
+            'apiKey': null,
+        })
+        router.redirect('/');
+    }
 </script>
 
 <div>
@@ -28,10 +41,22 @@
                     <li>Status<br><span class="dot" style="background-color: #ff0000"></span></li>
                 {/if}
                 {#each navItems as item}
-                <li>
-                  <a href={item.href}>{item.label}</a>
-                </li>
+                    <li>
+                        <a href={item.href}>{item.label}</a>
+                    </li>
                 {/each}
+                {#if $userState.loggedIn}
+                    <li>
+                        <a href="/">My account</a>
+                    </li>
+                    <li>
+                        <a href="/" on:click={logOut}>Log out</a>
+                    </li>
+                {:else}
+                    <li>
+                        <a href="/login">Log In</a>
+                    </li>
+                {/if}
             </ul>
         </div>
     </nav>

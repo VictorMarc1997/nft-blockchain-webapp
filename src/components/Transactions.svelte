@@ -7,7 +7,6 @@
 <style>
 	.main-content {
 		width: 100%;
-		margin-top: 100px;
 		display: grid;
 		place-items: center;
 	}

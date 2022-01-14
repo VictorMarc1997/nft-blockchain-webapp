@@ -1,13 +1,17 @@
 <script>
 	import router from "page"
+	import Blockchain from "./components/Blockchain.svelte";
 	import NavBar from './components/NavBar.svelte'
 	import Home from './components/Home.svelte'
 	import Transactions from "./components/Transactions.svelte";
+	import LogIn from "./components/LogIn.svelte";
 
 	let page
 
 	router('/', () => page = Home)
 	router('/transactions', () => page = Transactions)
+	router('/blockchain', () => page = Blockchain)
+	router('/login', () => page = LogIn)
 
 	router.start()
 </script>
@@ -46,7 +50,7 @@
 	}
 
 	.nav-bar {
-		height: 60px;
+		height: 200px;
 	}
 
 </style>
