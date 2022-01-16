@@ -78,7 +78,8 @@
                   <td class="transaction-box">
                     Sender: {transaction['sender']} <br> <br>
                     Receiver: {transaction['receiver']} <br> <br>
-                    Amount: <b>{transaction['amount']}</b> <br>
+                    Amount: <b>{transaction['amount']}</b> <br> <br>
+                    Asset: {transaction['asset']} <br>
                   </td>
                 {/each}
               {:else}

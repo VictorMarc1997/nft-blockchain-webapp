@@ -4,12 +4,6 @@
     import { baseUrl, userState } from '../stores.js';
     import router from "page";
 
-    const navItems = [
-        { label: "NFTs", href: "#" },
-        { label: "Transactions", href: "/transactions" },
-        { label: "Blockchain", href: "/blockchain" },
-    ];
-
     let status = "offline";
 
     onMount(async function () {
@@ -40,12 +34,16 @@
                 {:else}
                     <li>Status<br><span class="dot" style="background-color: #ff0000"></span></li>
                 {/if}
-                {#each navItems as item}
-                    <li>
-                        <a href={item.href}>{item.label}</a>
-                    </li>
-                {/each}
+                <li>
+                    <a href="/blockchain">Blockchain</a>
+                </li>
+                <li>
+                    <a href="/nfts">NFTs</a>
+                </li>
                 {#if $userState.loggedIn}
+                    <li>
+                        <a href="/transactions">Transactions</a>
+                    </li>
                     <li>
                         <a href="/">My account</a>
                     </li>

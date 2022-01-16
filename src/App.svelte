@@ -5,10 +5,12 @@
 	import Home from './components/Home.svelte'
 	import Transactions from "./components/Transactions.svelte";
 	import LogIn from "./components/LogIn.svelte";
+	import NFTs from "./components/NFTs.svelte";
 
 	let page
 
 	router('/', () => page = Home)
+	router('/nfts', () => page = NFTs)
 	router('/transactions', () => page = Transactions)
 	router('/blockchain', () => page = Blockchain)
 	router('/login', () => page = LogIn)

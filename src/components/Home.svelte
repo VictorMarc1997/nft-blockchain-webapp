@@ -13,6 +13,10 @@
 		response = await fetch(url + '/total_transactions');
 		data = await response.json();
 		total_transactions = data['result'];
+
+        response = await fetch(url + '/list_nfts');
+		data = await response.json();
+		total_nfts = data['total'];
 	});
 </script>
 
