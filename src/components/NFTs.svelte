@@ -1,16 +1,15 @@
 <script>
     import Gallery from './Gallery.svelte';
-    import router from 'page';
     import { baseUrl, userState} from "../stores";
     import { onMount } from "svelte";
-
-    // on:click="image(this)"
 
     let nfts = null;
     let selected = null;
     let searchText = null;
+    let searchSuccess = null;
+    let uploadSuccess = null;
 
-    let files;
+    let files = [];
     let dataFile = null;
     let createdToken = null;
 
@@ -28,11 +27,16 @@
 
             let response = await fetch($baseUrl + '/create_asset', options);
             let data = await response.json();
-            createdToken = data.token;
+
+            if (!response.success) {
+                uploadSuccess = false;
+            } else {
+                createdToken = data.token;
+            }
         }
         reader.readAsDataURL(files[0]);
 
-        alert("Successfully created an NFT");
+        uploadSuccess = true;
     }
 
     function handleImageSelect(event) {
@@ -53,10 +57,13 @@
         let response = await fetch($baseUrl + '/search_nft', options);
         let data = await response.json();
         if (data.success) {
+            searchSuccess = true;
             selected = {
                 src: data['nft'].image,
                 alt: data['nft'].token,
             }
+        } else {
+            searchSuccess = false;
         }
     }
 
@@ -78,14 +85,32 @@
                         {files[0].name}
                     </p>
                 {/if}
-                <button on:click={upload}>Create NFT</button>
+                {#if files[0]}
+                    <button on:click={upload}>Create NFT</button>
+                {:else}
+                    <button on:click={upload} disabled>Create NFT</button>
+                {/if}
+                {#if uploadSuccess !== null}
+                    {#if uploadSuccess}
+                        <p style="color: #00ff15">NFT successfully created and added to your account.
+                            Please refresh the page</p>
+                    {:else}
+                        <p style="color: #ff0000">NFT creation failed. Please seek assistance</p>
+                    {/if}
+                {/if}
             </div>
         {/if}
 
         <div class="search-box">
             <input id="search" placeholder="Search for token..." type="text" bind:value={searchText}>
             <button on:click={search}>Search</button>
+            {#if searchSuccess !== null}
+                {#if !searchSuccess}
+                    <p style="color: #ff0000">NFT does not exist</p>
+                {/if}
+            {/if}
         </div>
+
 
         {#if selected}
             <div class="nft-tools">

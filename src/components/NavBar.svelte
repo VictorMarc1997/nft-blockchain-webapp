@@ -29,11 +29,13 @@
     <nav>
         <div class="inner">
             <ul class="navbar-list">
-                {#if status === 'online'}
-                    <li>Status<br><span class="dot" style="background-color: #00ff15"></span></li>
-                {:else}
-                    <li>Status<br><span class="dot" style="background-color: #ff0000"></span></li>
-                {/if}
+                <a href="/" style="margin-top:10px;">
+                    {#if status === 'online'}
+                        <li>Status<br><span class="dot" style="background-color: #00ff15"></span></li>
+                    {:else}
+                        <li>Status<br><span class="dot" style="background-color: #ff0000"></span></li>
+                    {/if}
+                </a>
                 <li>
                     <a href="/blockchain">Blockchain</a>
                 </li>
