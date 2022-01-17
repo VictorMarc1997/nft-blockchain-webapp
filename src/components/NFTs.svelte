@@ -1,5 +1,5 @@
 <script>
-    import Gallery from './Gallery.svelte';
+    import Gallery from 'svelte-image-gallery';
     import { baseUrl, userState} from "../stores";
     import { onMount } from "svelte";
 
