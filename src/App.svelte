@@ -5,17 +5,19 @@
 	import Home from './components/Home.svelte'
 	import Transactions from "./components/Transactions.svelte";
 	import LogIn from "./components/LogIn.svelte";
+	import MyAccount from "./components/MyAccount.svelte";
 	import NFTs from "./components/NFTs.svelte";
 
-	let page
+	let page;
 
-	router('/', () => page = Home)
-	router('/nfts', () => page = NFTs)
-	router('/transactions', () => page = Transactions)
-	router('/blockchain', () => page = Blockchain)
-	router('/login', () => page = LogIn)
+	router('/', () => page = Home);
+	router('/nfts', () => page = NFTs);
+	router('/transactions', () => page = Transactions);
+	router('/blockchain', () => page = Blockchain);
+	router('/my-account', () => page = MyAccount);
+	router('/login', () => page = LogIn);
 
-	router.start()
+	router.start();
 </script>
 
 <svelte:head>

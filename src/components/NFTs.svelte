@@ -28,15 +28,14 @@
             let response = await fetch($baseUrl + '/create_asset', options);
             let data = await response.json();
 
-            if (!response.success) {
+            if (!data.success) {
                 uploadSuccess = false;
             } else {
+                uploadSuccess = true;
                 createdToken = data.token;
             }
         }
         reader.readAsDataURL(files[0]);
-
-        uploadSuccess = true;
     }
 
     function handleImageSelect(event) {
@@ -60,7 +59,7 @@
             searchSuccess = true;
             selected = {
                 src: data['nft'].image,
-                alt: data['nft'].token,
+                alt: data['nft'].token + ',' + data['nft'].owner,
             }
         } else {
             searchSuccess = false;
@@ -91,7 +90,7 @@
                     <button on:click={upload} disabled>Create NFT</button>
                 {/if}
                 {#if uploadSuccess !== null}
-                    {#if uploadSuccess}
+                    {#if uploadSuccess === true}
                         <p style="color: #00ff15">NFT successfully created and added to your account.
                             Please refresh the page</p>
                     {:else}
@@ -114,18 +113,19 @@
 
         {#if selected}
             <div class="nft-tools">
-                <img src={selected.src} alt={selected.alt} height="400">
+                <img src={selected.src} alt={selected.alt.split(",")[0]} height="100">
                 <div class="tools">
-                    <p>Non Fungible Token: {selected.alt}</p>
+                    <p>Non Fungible Token: {selected.alt.split(",")[0]}</p>
+                    <p>Owner: {selected.alt.split(",")[1]}</p>
                 </div>
             </div>
         {/if}
 
         {#if nfts}
             <div class="gallery" on:click={handleImageSelect}>
-                <Gallery gap="20" maxColumnWidth="250">
+                <Gallery gap="20" maxColumnWidth="100">
                     {#each nfts as nft}
-                        <img src={nft.image} alt={nft.token}>
+                        <img src={nft.image} alt={nft.token+','+nft.owner}>
                     {/each}
                 </Gallery>
             </div>
@@ -152,6 +152,7 @@
 		background-color: rgba(0, 0, 0, 0.9);
         border-radius: 15px;
 		padding: 30px;
+        width: 80%;
 	}
 
     .nft-tools {
@@ -161,6 +162,10 @@
 
     .nft-tools img {
         float: left;
+    }
+
+    #search {
+        width: 700px;
     }
 
     .gallery :global(img) { opacity: .9; transition: all .2s }

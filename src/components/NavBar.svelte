@@ -42,12 +42,12 @@
                 <li>
                     <a href="/nfts">NFTs</a>
                 </li>
+                <li>
+                    <a href="/transactions">Transactions</a>
+                </li>
                 {#if $userState.loggedIn}
                     <li>
-                        <a href="/transactions">Transactions</a>
-                    </li>
-                    <li>
-                        <a href="/">My account</a>
+                        <a href="/my-account">My account</a>
                     </li>
                     <li>
                         <a href="/" on:click={logOut}>Log out</a>
